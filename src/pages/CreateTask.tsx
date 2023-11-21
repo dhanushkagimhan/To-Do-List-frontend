@@ -29,14 +29,14 @@ export default function CreateTask() {
             <div className="mt-10 mx-5">
                 <div className="flex flex-row justify-end mb-4">
                     <button
-                        className=" bg-green-400 px-2 rounded-lg"
+                        className=" bg-green-400 px-4 py-2 rounded-lg"
                         onClick={() => navigate("/")}
                     >
                         ToDo List
                     </button>
                 </div>
-                <h1>Create Task</h1>
-                <div>
+                <h1 className=" text-2xl font-semibold">Create Task</h1>
+                <div className="mt-5">
                     <form onSubmit={formSubmit}>
                         <label>
                             Title:
@@ -63,7 +63,7 @@ export default function CreateTask() {
                         <br />
                         <input
                             type="submit"
-                            className="p-2 bg-slate-200"
+                            className="p-2 bg-slate-200 cursor-pointer"
                             value="Submit"
                         />
                     </form>

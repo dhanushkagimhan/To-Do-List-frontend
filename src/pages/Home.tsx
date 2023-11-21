@@ -47,14 +47,18 @@ export default function Home() {
 
     const TodoItem = ({ taskData }: { taskData: TaskType }) => {
         return (
-            <div className="p-2 my-6 rounded-xl border-2 border-slate-200 min-w-[200px] max-w-[1000px]">
+            <div
+                className={`p-2 mx-auto my-6 rounded-xl border-2 border-slate-200 min-w-[200px] max-w-[1000px] ${
+                    taskData.isCompleted ? "bg-green-50" : "bg-yellow-50"
+                }`}
+            >
                 <div className=" flex flex-row justify-between border-b-2 border-slate-200">
-                    <div className="">{taskData.title}</div>
+                    <div className=" font-semibold">{taskData.title}</div>
                     <div className="flex flex-row gap-2">
                         <div
                             className={`cursor-pointer ${
                                 taskData.isCompleted
-                                    ? "text-green-500"
+                                    ? "text-green-600"
                                     : "text-blue-400"
                             }`}
                             onClick={() =>
@@ -72,7 +76,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div>{taskData.description}</div>
+                <div className="p-4">{taskData.description}</div>
             </div>
         );
     };
@@ -82,13 +86,13 @@ export default function Home() {
             <div className="mt-10 mx-5">
                 <div className="flex flex-row justify-end mb-4">
                     <button
-                        className=" bg-green-400 px-2 rounded-lg"
+                        className=" bg-green-400 px-4 py-2 rounded-lg"
                         onClick={() => navigate("/create")}
                     >
                         Create
                     </button>
                 </div>
-                <h1>To Do Task List</h1>
+                <h1 className=" text-2xl font-semibold">To Do Task List</h1>
                 <div>
                     {task.map((task: TaskType, index: number) => {
                         return <TodoItem taskData={task} key={index} />;
