@@ -2,6 +2,8 @@
 
 ## For deploy in the local
 
+### Firstly start the ToDo List Backend server, and then,
+
 ### clone the repository
 
 ### Then go to root directory
