@@ -57,7 +57,7 @@ export default function CreateTask() {
                         </button>
                     </div>
                     <h1 className=" text-2xl font-semibold">Create Task</h1>
-                    <div className="mt-5">
+                    <div className="mt-10 min-w-[200px] max-w-[1000px] mx-auto">
                         <form onSubmit={formSubmit}>
                             <label>
                                 Title:
@@ -65,19 +65,20 @@ export default function CreateTask() {
                                 <input
                                     type="text"
                                     name="title"
-                                    className="border-2 border-slate-200"
+                                    className="border-2 border-slate-200 w-full rounded-lg h-10 p-4"
                                     onChange={(e) => setTitle(e.target.value)}
                                     value={title}
                                     required
                                 />
                             </label>
                             <br />
+                            <br />
                             <label>
                                 Description:
                                 <br />
                                 <textarea
                                     name="description"
-                                    className="border-2 border-slate-200"
+                                    className="border-2 border-slate-200 w-full h-40 rounded-lg p-4"
                                     onChange={(e) =>
                                         setDescription(e.target.value)
                                     }
@@ -86,11 +87,14 @@ export default function CreateTask() {
                                 />
                             </label>
                             <br />
-                            <input
-                                type="submit"
-                                className="p-2 bg-slate-200 cursor-pointer"
-                                value="Submit"
-                            />
+                            <br />
+                            <div className=" flex flex-row justify-end">
+                                <input
+                                    type="submit"
+                                    className="p-2 bg-slate-200 cursor-pointer rounded-lg"
+                                    value="Submit"
+                                />
+                            </div>
                         </form>
                     </div>
                 </div>

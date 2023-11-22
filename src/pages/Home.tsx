@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TaskType } from "../types";
 import { apiService } from "../service/service";
 import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { Popconfirm, message } from "antd";
 
 export default function Home() {
     const [task, setTask] = useState<TaskType[]>([]);
@@ -116,13 +116,21 @@ export default function Home() {
                                 completeTask(taskData._id, taskData.isCompleted)
                             }
                         >
-                            {taskData.isCompleted ? "completed" : "complete"}
+                            {taskData.isCompleted ? "Completed" : "Complete"}
                         </div>
-                        <div
-                            className=" cursor-pointer text-red-500"
-                            onClick={() => deleteTask(taskData._id)}
-                        >
-                            delete
+                        <div>
+                            <Popconfirm
+                                title="Delete the task"
+                                description="Are you sure to delete this task?"
+                                onConfirm={() => deleteTask(taskData._id)}
+                                okText="Yes"
+                                cancelText="No"
+                                okType="default"
+                            >
+                                <div className=" cursor-pointer text-red-500">
+                                    Delete
+                                </div>
+                            </Popconfirm>
                         </div>
                     </div>
                 </div>
