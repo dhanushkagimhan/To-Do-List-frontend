@@ -2,46 +2,97 @@ import { useEffect, useState } from "react";
 import { TaskType } from "../types";
 import { apiService } from "../service/service";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 export default function Home() {
     const [task, setTask] = useState<TaskType[]>([]);
     const navigate = useNavigate();
+
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         loadDate();
     }, []);
 
     const loadDate = async () => {
-        const data = await apiService.get("task");
-        if (data.status === 200) {
-            setTask(data.data.data);
-        } else {
-            console.log("data loading error : ", data);
+        try {
+            const data = await apiService.get("task");
+            if (data.status === 200) {
+                setTask(data.data.data);
+            } else {
+                console.log("data loading error : ", data);
+                messageApi.open({
+                    type: "error",
+                    content: "Error in new task data loading",
+                });
+                setTask([]);
+            }
+        } catch (error) {
+            console.log("data loading error : ", error);
             setTask([]);
+            messageApi.open({
+                type: "error",
+                content: "Error in new task data loading",
+            });
         }
     };
 
     const completeTask = async (id: string, isCompleted: boolean) => {
-        const data = await apiService.patch("task/complete/" + id, {
-            isCompleted: !isCompleted,
-        });
+        try {
+            const data = await apiService.patch("task/complete/" + id, {
+                isCompleted: !isCompleted,
+            });
 
-        console.log(data);
-        if (data.status === 200) {
-            loadDate();
-        } else {
-            console.log("task completion error : ", data);
+            console.log(data);
+            if (data.status === 200) {
+                loadDate();
+                const alertMsg: string = isCompleted
+                    ? "Task set to not complete"
+                    : "Task completed";
+                messageApi.open({
+                    type: "success",
+                    content: alertMsg,
+                });
+            } else {
+                console.log("task completion error : ", data);
+                messageApi.open({
+                    type: "error",
+                    content: "Error in completion task",
+                });
+            }
+        } catch (error) {
+            console.log("task completion error : ", error);
+            messageApi.open({
+                type: "error",
+                content: "Error in completion task",
+            });
         }
     };
 
     const deleteTask = async (id: string) => {
-        const data = await apiService.delete("task/" + id);
+        try {
+            const data = await apiService.delete("task/" + id);
 
-        console.log(data);
-        if (data.status === 200) {
-            loadDate();
-        } else {
-            console.log("task deletion error : ", data);
+            console.log(data);
+            if (data.status === 200) {
+                loadDate();
+                messageApi.open({
+                    type: "success",
+                    content: "Task deleted",
+                });
+            } else {
+                console.log("task deletion error : ", data);
+                messageApi.open({
+                    type: "error",
+                    content: "Task deletion error",
+                });
+            }
+        } catch (error) {
+            console.log("task deletion error : ", error);
+            messageApi.open({
+                type: "error",
+                content: "Task deletion error",
+            });
         }
     };
 
@@ -82,23 +133,26 @@ export default function Home() {
     };
 
     return (
-        <div className="container mx-auto">
-            <div className="mt-10 mx-5">
-                <div className="flex flex-row justify-end mb-4">
-                    <button
-                        className=" bg-green-400 px-4 py-2 rounded-lg"
-                        onClick={() => navigate("/create")}
-                    >
-                        Create
-                    </button>
-                </div>
-                <h1 className=" text-2xl font-semibold">To Do Task List</h1>
-                <div>
-                    {task.map((task: TaskType, index: number) => {
-                        return <TodoItem taskData={task} key={index} />;
-                    })}
+        <>
+            {contextHolder}
+            <div className="container mx-auto">
+                <div className="mt-10 mx-5">
+                    <div className="flex flex-row justify-end mb-4">
+                        <button
+                            className=" bg-green-400 px-4 py-2 rounded-lg"
+                            onClick={() => navigate("/create")}
+                        >
+                            Create
+                        </button>
+                    </div>
+                    <h1 className=" text-2xl font-semibold">To Do Task List</h1>
+                    <div>
+                        {task.map((task: TaskType, index: number) => {
+                            return <TodoItem taskData={task} key={index} />;
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
