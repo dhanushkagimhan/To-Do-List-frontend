@@ -5,8 +5,8 @@ import { message } from "antd";
 
 export default function CreateTask() {
     const navigate = useNavigate();
-    const [title, setTitle] = useState<string>();
-    const [description, setDescription] = useState<string>();
+    const [title, setTitle] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
 
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -56,7 +56,7 @@ export default function CreateTask() {
                             ToDo List
                         </button>
                     </div>
-                    <h1 className=" text-2xl font-semibold">Create Task</h1>
+                    <h1 className="text-3xl font-semibold">Create Task</h1>
                     <div className="mt-10 min-w-[200px] max-w-[1000px] mx-auto">
                         <form onSubmit={formSubmit}>
                             <label>

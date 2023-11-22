@@ -103,7 +103,7 @@ export default function Home() {
                     taskData.isCompleted ? "bg-green-50" : "bg-yellow-50"
                 }`}
             >
-                <div className=" flex flex-row justify-between border-b-2 border-slate-200">
+                <div className=" flex flex-row max-sm:flex-col gap-2 pb-4 justify-between border-b-2 border-slate-200">
                     <div className=" font-semibold">{taskData.title}</div>
                     <div className="flex flex-row gap-2">
                         <div
@@ -147,14 +147,14 @@ export default function Home() {
                 <div className="mt-10 mx-5">
                     <div className="flex flex-row justify-end mb-4">
                         <button
-                            className=" bg-green-400 px-4 py-2 rounded-lg"
+                            className="bg-green-400 px-4 py-2 rounded-lg"
                             onClick={() => navigate("/create")}
                         >
                             Create
                         </button>
                     </div>
-                    <h1 className=" text-2xl font-semibold">To Do Task List</h1>
-                    <div>
+                    <h1 className="text-3xl font-semibold">To Do Task List</h1>
+                    <div className="mt-10">
                         {task.map((task: TaskType, index: number) => {
                             return <TodoItem taskData={task} key={index} />;
                         })}
