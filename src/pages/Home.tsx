@@ -155,9 +155,15 @@ export default function Home() {
                     </div>
                     <h1 className="text-3xl font-semibold">To Do Task List</h1>
                     <div className="mt-10">
-                        {task.map((task: TaskType, index: number) => {
-                            return <TodoItem taskData={task} key={index} />;
-                        })}
+                        {task.length === 0 ? (
+                            <div className="mx-auto min-w-[200px] max-w-[1000px] text-center">
+                                No Task
+                            </div>
+                        ) : (
+                            task.map((task: TaskType, index: number) => {
+                                return <TodoItem taskData={task} key={index} />;
+                            })
+                        )}
                     </div>
                 </div>
             </div>
